@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/CCTV-Spark.iml" filepath="$PROJECT_DIR$/.idea/CCTV-Spark.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VideoGenerator/VideoGenerator.iml" filepath="$PROJECT_DIR$/VideoGenerator/VideoGenerator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vist/vist.iml" filepath="$PROJECT_DIR$/vist/vist.iml" />
     </modules>
   </component>
 </project>

@@ -5,5 +5,20 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/opencv/build/java/opencv-320.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://$USER_HOME$/Downloads/opencv/build/java/x64" />
+          <root url="file://$USER_HOME$/Downloads/opencv/build/bin" />
+        </NATIVE>
+        <SOURCES>
+          <root url="jar://$USER_HOME$/Downloads/opencv/build/java/opencv-320.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
