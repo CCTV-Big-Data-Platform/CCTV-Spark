@@ -16,7 +16,7 @@ public class VideoConvertToEncodedString {
         System.loadLibrary("opencv_ffmpeg320_64");
     }
     public static void main(String[] args){
-        String path = "C:\\Users\\SJ\\Desktop\\vist\\sample-video\\clean04.mov";
+        String path = "./sample-video/sample.mp4";
         String tmpPath = "C:\\Users\\SJ\\Desktop\\vist\\tmpFrame\\temp.jpg";
 
         Mat frame = new Mat();
