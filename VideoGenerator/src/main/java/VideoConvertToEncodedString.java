@@ -1,5 +1,6 @@
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonWriter;
 import org.apache.commons.io.FileUtils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -15,9 +16,9 @@ public class VideoConvertToEncodedString {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         System.loadLibrary("opencv_ffmpeg320_64");
     }
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         String path = "./sample-video/sample.mp4";
-        String tmpPath = "C:\\Users\\SJ\\Desktop\\vist\\tmpFrame\\temp.jpg";
+        String tmpPath = "./tmpFrame/temp.jpg";
 
         Mat frame = new Mat();
         VideoCapture videoCapture = new VideoCapture();
@@ -42,18 +43,24 @@ public class VideoConvertToEncodedString {
                 Imgcodecs.imwrite(tmpPath, frame);
                 File tmpFile = new File(tmpPath);
 
-                testMethod(cnt, tmpFile);
+                //testMethod(cnt, tmpFile);
                 String encodedString = encodingMethod(cnt, tmpFile);
 
                 FileUtils.deleteQuietly(tmpFile);
 
-                Imgcodecs.imwrite("C:\\Users\\SJ\\Desktop\\vist\\img1\\" + cnt +".jpg", frame);
+                // write original image file for test
+                //Imgcodecs.imwrite("./img1/" + cnt +".jpg", frame);
 
                 String timestamp = new Timestamp(System.currentTimeMillis()).toString();
                 JsonObject obj = new JsonObject();
                 obj.addProperty("timestamp", timestamp);
                 obj.addProperty("data", encodedString);
                 json = gson.toJson(obj);
+
+                FileWriter jsonWriter = new FileWriter("./data-log/" + cnt + ".json");
+                jsonWriter.write(json);
+                jsonWriter.flush();
+                jsonWriter.close();
             }
             frame.release();
             videoCapture.release();
@@ -75,7 +82,7 @@ public class VideoConvertToEncodedString {
 
             imageInFile.close();
 
-            System.out.println("Image Successfully Manipulated!");
+            //System.out.println("Image Successfully Manipulated!");
             return imageDataString;
         } catch (FileNotFoundException e) {
             System.out.println("Image not found" + e);
@@ -105,7 +112,7 @@ public class VideoConvertToEncodedString {
 
             // Write a image byte array into file system
             FileOutputStream imageOutFile = new FileOutputStream(
-                    "C:\\Users\\SJ\\Desktop\\vist\\img2\\" + cnt +".jpg");
+                    "./img2/" + cnt +".jpg");
 
             imageOutFile.write(imageByteArray);
 
