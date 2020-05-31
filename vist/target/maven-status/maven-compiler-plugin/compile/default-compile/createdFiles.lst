@@ -1,0 +1,4 @@
+VistApplication.class
+processor\FaceRecognitionMap.class
+processor\CommandLineExecutor.class
+properties\DetectionResult.class
