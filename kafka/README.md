@@ -1,0 +1,2 @@
+- to test this code, you need 'tmp' folder in root directory.
+- for 'testMethod' in VideoDataConverter, you need 'img1' and 'img2' in root directory.
