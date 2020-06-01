@@ -1,20 +1,19 @@
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import org.apache.spark.sql.*;
 import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder;
 import org.apache.spark.sql.catalyst.encoders.RowEncoder;
 import org.apache.spark.sql.types.StructType;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.Dataset;
 import processor.FaceRecognitionMap;
-import properties.DetectionResult;
+import processor.JsonParser;
+import schema.DetectionResult;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.sql.Timestamp;
+import java.io.*;
 
 public class VistApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         StructType detectionResultStructType = Encoders.bean(DetectionResult.class).schema();
         ExpressionEncoder<Row> encoder = RowEncoder.apply(detectionResultStructType);
 
@@ -31,14 +30,15 @@ public class VistApplication {
                 .read()
                 .format("kafka")
                 .option("kafka.bootstrap.servers", "1.201.142.81:9092")
-                .option("subscribe", "CCTV-stream")
-                .option("kafka.max.request.size", "5242880")
+                .option("subscribe", "test66")
+                .option("fetch.max.bytes", "5242880")
+                .option("startingOffsets", "earliest")
                 .load();
 
-        Dataset<Row> df2 = df.map(new FaceRecognitionMap(),encoder);
 
-        df2.foreach(row -> {
+        Dataset<Row> jsonDataDf = JsonParser.jsonParser(df);
+        Dataset<Row> resultDf = jsonDataDf.map(new FaceRecognitionMap(), encoder);
+        resultDf.show();
 
-        });
     }
 }
