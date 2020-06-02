@@ -9,6 +9,11 @@ public class FaceRecognitionMap implements MapFunction<Row, Row> {
 
     @Override
     public Row call(Row row) throws Exception {
+        String data = row.get(0).toString();
+        String timestamp = row.get(1).toString();
+        String detectedType = new String();
+        //String userId;
+
         Boolean flag = false;
 //        String json = null;
 //        Gson gson = new Gson();
@@ -32,8 +37,10 @@ public class FaceRecognitionMap implements MapFunction<Row, Row> {
         String cmd = "cmd /c python ./python-module/test.py";
         CommandLineExecutor commandLineExecutor = new CommandLineExecutor();
         String isDetected = commandLineExecutor.execute(cmd);
-        //FileUtils.deleteQuietly(tmpFile);
 
+        //FileUtils.deleteQuietly(tmpFile);
+       // System.out.println(row.get(0).toString());
+        System.out.println(row.get(1).toString());
         // detected process
         if(isDetected.startsWith("True")) {
 //            String fileName = row.get(2).toString() + "_" + System.currentTimeMillis() + ".json";
@@ -44,8 +51,8 @@ public class FaceRecognitionMap implements MapFunction<Row, Row> {
 //            detectedJsonWriter.write(json);
 //            detectedJsonWriter.flush();
 //            detectedJsonWriter.close();
-
             flag = true;
+            DetectedRequestController.sendPostRequest("userId", timestamp, data, "fire");
         }
         return RowFactory.create(row.get(0), flag, row.get(1));
     }

@@ -21,6 +21,7 @@ public class VistApplication {
                 .builder()
                 .master("local[2]")
                 .appName("localTestApp")
+
                 .getOrCreate();
 
         spark.sparkContext().setLogLevel("WARN");
@@ -39,6 +40,5 @@ public class VistApplication {
         Dataset<Row> jsonDataDf = JsonParser.jsonParser(df);
         Dataset<Row> resultDf = jsonDataDf.map(new FaceRecognitionMap(), encoder);
         resultDf.show();
-
     }
 }
