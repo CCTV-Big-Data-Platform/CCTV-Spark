@@ -6,7 +6,7 @@ import org.apache.spark.sql.types.StructType;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.Dataset;
 import processor.FaceRecognitionMap;
-import processor.JsonParser;
+import processor.ReadStreamJsonParser;
 import schema.DetectionResult;
 
 import java.io.*;
@@ -21,7 +21,6 @@ public class VistApplication {
                 .builder()
                 .master("local[2]")
                 .appName("localTestApp")
-
                 .getOrCreate();
 
         spark.sparkContext().setLogLevel("WARN");
@@ -31,14 +30,15 @@ public class VistApplication {
                 .read()
                 .format("kafka")
                 .option("kafka.bootstrap.servers", "1.201.142.81:9092")
-                .option("subscribe", "test66")
-                .option("fetch.max.bytes", "5242880")
+                .option("subscribe", "test2")
+                .option("fetch.max.bytes", "20971760")
                 .option("startingOffsets", "earliest")
                 .load();
 
-
-        Dataset<Row> jsonDataDf = JsonParser.jsonParser(df);
-        Dataset<Row> resultDf = jsonDataDf.map(new FaceRecognitionMap(), encoder);
+        Dataset<Row> resultDf = ReadStreamJsonParser.jsonParser(df)
+                .map(new FaceRecognitionMap(), encoder);
         resultDf.show();
+        Dataset<Row> detectedDf = resultDf.filter(resultDf.col("faceDetection").equalTo(true));
+        detectedDf.show();
     }
 }

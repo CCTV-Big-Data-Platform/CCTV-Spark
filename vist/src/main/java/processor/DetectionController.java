@@ -9,14 +9,12 @@ import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class DetectedRequestController {
-    public static void sendPostRequest(String userId, String timestamp, String detectionType) {
+public class DetectionController {
+    public static String sendPostRequest(String data) {
         try {
-            URL url = new URL("http://victoria.khunet.net:5900/notificate");
+            URL url = new URL("http://1.201.142.81/process");
             Map<String,Object> params = new LinkedHashMap<>();
-            params.put("userId", userId);
-            params.put("timestamp", timestamp);
-            params.put("detectionType", detectionType);
+            params.put("data", data);
 
             StringBuilder postData = new StringBuilder();
             for (Map.Entry<String,Object> param : params.entrySet()) {
@@ -44,10 +42,11 @@ public class DetectedRequestController {
                     sb.append(line).append("\n");
                 }
                 br.close();
-                // System.out.println("" + sb.toString());
             } else {
                 System.out.println(conn.getResponseMessage());
             }
+
+            return sb.toString();
 
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());

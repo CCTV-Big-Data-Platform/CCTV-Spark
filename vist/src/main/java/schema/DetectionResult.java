@@ -1,6 +1,7 @@
 package schema;
 
 import lombok.*;
+import org.apache.arrow.flatbuf.Bool;
 
 @Setter
 @Getter
@@ -10,5 +11,7 @@ import lombok.*;
 public class DetectionResult {
     String data;
     String timestamp;
-    Boolean isDetected;
+    String userId;
+    Boolean fireDetected;
+    Boolean unknownDetected;
 }

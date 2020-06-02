@@ -7,7 +7,7 @@ import org.apache.spark.sql.functions;
 import org.apache.spark.sql.types.StructType;
 import schema.JsonData;
 
-public class JsonParser {
+public class ReadStreamJsonParser {
     public static Dataset<Row> jsonParser(Dataset<Row> df){
         StructType jsonDataStructType = Encoders.bean(JsonData.class).schema();
         return  df.selectExpr("CAST(value AS STRING) as value")

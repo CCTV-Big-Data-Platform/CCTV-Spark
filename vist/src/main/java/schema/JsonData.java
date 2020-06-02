@@ -9,5 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 public class JsonData {
     String data;
+    String userId;
     String timestamp;
 }
