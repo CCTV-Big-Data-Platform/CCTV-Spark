@@ -12,7 +12,7 @@ import java.util.Map;
 public class DetectionController {
     public static String sendPostRequest(String data) {
         try {
-            URL url = new URL("http://1.201.142.81/process");
+            URL url = new URL("http://101.101.210.73/process");
             Map<String,Object> params = new LinkedHashMap<>();
             params.put("data", data);
 

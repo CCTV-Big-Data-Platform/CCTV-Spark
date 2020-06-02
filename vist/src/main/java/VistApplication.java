@@ -9,18 +9,16 @@ import processor.FaceRecognitionMap;
 import processor.ReadStreamJsonParser;
 import schema.DetectionResult;
 
-import java.io.*;
-
 public class VistApplication {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         StructType detectionResultStructType = Encoders.bean(DetectionResult.class).schema();
         ExpressionEncoder<Row> encoder = RowEncoder.apply(detectionResultStructType);
 
         SparkSession spark = SparkSession
                 .builder()
-                .master("local[2]")
-                .appName("localTestApp")
+                .master("local[*]")
+                .appName("CCTV-stream-App")
                 .getOrCreate();
 
         spark.sparkContext().setLogLevel("WARN");
@@ -37,8 +35,7 @@ public class VistApplication {
 
         Dataset<Row> resultDf = ReadStreamJsonParser.jsonParser(df)
                 .map(new FaceRecognitionMap(), encoder);
-        resultDf.show();
-        Dataset<Row> detectedDf = resultDf.filter(resultDf.col("faceDetection").equalTo(true));
+        Dataset<Row> detectedDf = resultDf.filter("fireDetected=true OR unknownDetected=true");
         detectedDf.show();
     }
 }
