@@ -1,4 +1,7 @@
+processor\DetectionController.class
+schema\DetectionResult.class
+schema\JsonData.class
 VistApplication.class
+processor\ReadStreamJsonParser.class
 processor\FaceRecognitionMap.class
-processor\CommandLineExecutor.class
-properties\DetectionResult.class
+processor\DetectedRequestController.class

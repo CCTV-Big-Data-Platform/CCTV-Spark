@@ -1,4 +1,7 @@
 C:\Users\SJ\Desktop\CCTV-Spark\vist\src\main\java\VistApplication.java
-C:\Users\SJ\Desktop\CCTV-Spark\vist\src\main\java\processor\CommandLineExecutor.java
-C:\Users\SJ\Desktop\CCTV-Spark\vist\src\main\java\properties\DetectionResult.java
+C:\Users\SJ\Desktop\CCTV-Spark\vist\src\main\java\processor\DetectedRequestController.java
+C:\Users\SJ\Desktop\CCTV-Spark\vist\src\main\java\processor\ReadStreamJsonParser.java
+C:\Users\SJ\Desktop\CCTV-Spark\vist\src\main\java\processor\DetectionController.java
+C:\Users\SJ\Desktop\CCTV-Spark\vist\src\main\java\schema\JsonData.java
+C:\Users\SJ\Desktop\CCTV-Spark\vist\src\main\java\schema\DetectionResult.java
 C:\Users\SJ\Desktop\CCTV-Spark\vist\src\main\java\processor\FaceRecognitionMap.java
