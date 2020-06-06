@@ -28,13 +28,14 @@ public class VistApplication {
                 .read()
                 .format("kafka")
                 .option("kafka.bootstrap.servers", "1.201.142.81:9092")
-                .option("subscribe", "test2")
+                .option("subscribe", "test4")
                 .option("fetch.max.bytes", "20971760")
                 .option("startingOffsets", "earliest")
                 .load();
 
         Dataset<Row> resultDf = ReadStreamJsonParser.jsonParser(df)
                 .map(new FaceRecognitionMap(), encoder);
+        resultDf.show();
         Dataset<Row> detectedDf = resultDf.filter("fireDetected=true OR unknownDetected=true");
         detectedDf.show();
     }
